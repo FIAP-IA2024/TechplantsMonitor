@@ -10,8 +10,10 @@
 
 ## 👨‍🎓 Integrantes: 
 - <a href="https://www.linkedin.com/in/edimilson-ribeiro/">Edimilson Ribeiro</a>
-- <a href="https://www.linkedin.com/in/jacorrea"> Junior Correa</a> 
-- <a href="https://www.linkedin.com/in/jonas-felipe-dos-santos-lima-b2346811b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Jonas Felipe</a> 
+- <a href="https://www.linkedin.com/in/ribeirogab/">Gabriel Ribeiro</a>
+- <a href="https://www.linkedin.com/in/jonas-felipe-dos-santos-lima-b2346811b/">Jonas Felipe dos Santos Lima</a>
+- <a href="https://www.linkedin.com/in/jacorrea/">Jose Antonio Correa Junior</a>
+- <a href="https://www.linkedin.com/in/mstrazzini/">Marcos Trazzini</a>
 
 ## 👩‍🏫 Professores:
 ### Tutor(a) 
