@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "author": "Jose Antonio Correa Junior",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": -297.6,
+      "left": -523.16,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic1",
+      "top": -263.7,
+      "left": -239.1,
+      "rotate": 90,
+      "attrs": { "distance": "2" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -508.5,
+      "left": -667.8,
+      "attrs": { "humidity": "53.5" }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay1",
+      "top": -496.2,
+      "left": -610.8,
+      "rotate": 270,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": -326.7,
+      "left": -811.9,
+      "rotate": 90,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir1",
+      "top": -485.6,
+      "left": -362.58,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": -675.6,
+      "left": -504.6,
+      "attrs": { "color": "limegreen", "flip": "1" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led4",
+      "top": -666,
+      "left": -610.6,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": -590.4,
+      "left": -557.35,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r4",
+      "top": -590.4,
+      "left": -586.15,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "ultrasonic1:VCC", "esp:5V", "red", [ "h-67.2", "v86.4", "h-163.35" ] ],
+    [ "ultrasonic1:TRIG", "esp:17", "gold", [ "h-38.4", "v-106" ] ],
+    [ "ultrasonic1:ECHO", "esp:16", "blue", [ "v-0.8", "h-76.8", "v-124.8" ] ],
+    [ "esp:GND.2", "dht1:GND", "black", [ "v0" ] ],
+    [ "dht1:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "dht1:SDA", "esp:12", "green", [ "v0" ] ],
+    [ "ldr1:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "ldr1:VCC", "esp:3V3", "red", [ "h42.92", "v-114.82" ] ],
+    [ "ldr1:AO", "esp:14", "orange", [ "v0" ] ],
+    [ "esp:GND.1", "relay1:GND", "black", [ "h0" ] ],
+    [ "esp:3V3", "relay1:VCC", "red", [ "h0" ] ],
+    [ "esp:3V3", "pir1:VCC", "red", [ "v-38.4", "h192.15" ] ],
+    [ "pir1:OUT", "esp:22", "green", [ "v0" ] ],
+    [ "esp:32", "relay1:IN", "violet", [ "h0" ] ],
+    [ "relay1:COM", "esp:3V3", "red", [ "v37.2", "h113.8" ] ],
+    [ "esp:GND.2", "led3:C", "black", [ "v0" ] ],
+    [ "relay1:NO", "r3:2", "red", [ "v0" ] ],
+    [ "r3:1", "led3:A", "red", [ "h0" ] ],
+    [ "relay1:NC", "r4:2", "red", [ "v0" ] ],
+    [ "r4:1", "led4:A", "red", [ "h0" ] ],
+    [ "led4:C", "esp:GND.2", "black", [ "h173.2", "v355.2" ] ],
+    [ "ultrasonic1:GND", "esp:GND.3", "black", [ "v-87.6", "h-134.4" ] ],
+    [ "pir1:GND", "esp:GND.3", "black", [ "v105.6", "h-134.66" ] ]
+  ],
+  "dependencies": {}
+}
