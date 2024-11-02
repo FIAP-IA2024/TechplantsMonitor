@@ -30,25 +30,22 @@ O objetivo educacional deste projeto é criar um sistema inteligente de monitora
 
  Estrutura do Aplicativo
 
-O sistema é dividido em diversos módulos que desempenham funções específicas:
+O sistema é dividido em diversos "módulos" que desempenham funções específicas:
 
-- wokwi.toml: XXXXXXXXXXXXXX
-- diagram.json: XXXXXXXXXXXXXXXX
-- 
+ Funcionalidades do Aplicativo/Solução
 
- Funcionalidades do Aplicativo
+ 1. Sensor PIR
 
- 1. XXXXXXX
+- Leitura do valor do sensor PIR, se movimento for detectado (pirValue == HIGH).
+- Output: uma mensagem é exibida no Serial Monitor: "Movimento detectado! Alarme acionado!".
 
-XXXXXXXX
 
-- Output: XXXXXXXXX
+ 2. Sensor DHT 22
 
- 2. XXXXXXXX
-
-XXXXXXXXXXXX
-
-- Output: XXXXXXXXXXXX
+- Leitura da umidade com dht.readHumidity();.
+- Leitura da temperatura com dht.readTemperature();.
+- Verificação de falha na leitura usando isnan().
+- Output: Exibição dos valores de temperatura e umidade no Serial Monitor.
 
  3. XXXXXXXXXXXX
 
@@ -59,7 +56,7 @@ XXXXXXXXXXXXXXXXX
  Requisitos do Sistema
 
 - ESP32 (Wokwi - esp32-devkit-c-v4) - https://wokwi.com
-- Bibliotecas: 
+- Bibliotecas: DHT sensor library e DHT22 (ver arquivo libraries.txt na pasta docs do repositório)
 
  Instruções de Uso
 
@@ -76,13 +73,13 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 - <b>src</b>: Contém os codigos do projeto - Sketch.ino e diagram.json
 
 - <b>docs</b>: Contém os documentos do projeto.
-    - <b>README.md</b>: Instruções
+    - <b>README.md</b>: Informações gerais sobre o projeto, sobre a iniciativa e também instruções gerais para utilização do conteudo do repositório GIT.
 
 - <b>tests</b>: Contém os resultados dos testes executados, para este projeto são prints do monitor serial da plataforma Wokwi com os resutados das simulações.
 
 ## 🔧 Como executar o código
 
-1. Para executar o código apenas copie o conteúdo dos arquivos Sketch.ino e diagram.json para os respectivos arquivos dentro da plataforma Wokwi e rode a simulação para ter acesso ao ambinete.
+1. Para executar o código apenas inicie a simulação para ter acesso a solução de maneira interativa na plataforma Wokwi.
 
 ## 🗃 Histórico de lançamentos
 * 0.1.0 - 02/11/2024
