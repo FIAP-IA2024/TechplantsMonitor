@@ -47,11 +47,10 @@ O sistema é dividido em diversos "módulos" que desempenham funções específi
 - Verificação de falha na leitura usando isnan().
 - Output: Exibição dos valores de temperatura e umidade no Serial Monitor.
 
- 3. XXXXXXXXXXXX
+ 3. Sensor LDR
 
-XXXXXXXXXXXXXXXXX
-
-- Output: XXXXXXXXXXX
+- Leitura de variações de luz sobre o sensor.
+- Output: Valor da luminosidade é exibido no Serial Monitor.
 
  Requisitos do Sistema
 
