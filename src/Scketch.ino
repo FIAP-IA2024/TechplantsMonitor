@@ -68,6 +68,15 @@ void loop() {
     Serial.print("Umidade: ");
     Serial.print(umidade);
     Serial.println(" %");
+
+    // --- Alertas baseados nas leituras do DHT22 ---
+    if (umidade < umidadeMinima) {
+      Serial.println("ALERTA: Umidade baixa! Condições secas podem prejudicar as plantas.");
+    }
+
+    if (temperatura > temperaturaMaxima) {
+      Serial.println("ALERTA: Temperatura alta! Condições de calor extremo detectadas.");
+    }
   }
 
   // --- Leitura do Sensor LDR ---
@@ -111,7 +120,7 @@ void loop() {
     Serial.print(nivelMaximo);
     Serial.println(" Litros");
 
-    // Mensagens sobre o estado do reservatório
+    // --- Mensagens sobre o estado do reservatório ---
     if (distancia <= 39) {
       Serial.println("Reservatório em estado ÓTIMO - Nível de água acima de 90%");
     } else if (distancia <= 100) {
@@ -123,7 +132,12 @@ void loop() {
     } else if (distancia <= 398) {
       Serial.println("Reservatório em estado MÍNIMO - Nível de água abaixo de 25%");
     } else {
-      Serial.println("Reservatório em estado CRÍTICO - Ação imediata necessária!");
+      Serial.println("ALERTA CRÍTICO: Reservatório quase vazio! Ação imediata necessária!");
+    }
+
+    // --- Alerta de Nível de Água Baixo ---
+    if (nivel <= nivelMinimo) {
+      Serial.println("ALERTA: Nível de água abaixo do mínimo necessário para irrigação.");
     }
   }
 
