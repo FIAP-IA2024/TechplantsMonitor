@@ -58,9 +58,8 @@ XXXXXXXXXXXXXXXXX
 
  Requisitos do Sistema
 
-- Python 3.6+
-- Bibliotecas Python: `numpy`, `opencv-python`, `matplotlib`, `cx_Oracle` ou `oracledb`, `scipy` e `pandas`
-- Oracle Instant Client: Necessário para conexão ao banco de dados Oracle
+- ESP32 (Wokwi - esp32-devkit-c-v4) - https://wokwi.com
+- Bibliotecas: 
 
  Instruções de Uso
 
@@ -74,23 +73,25 @@ Se precisar de mais assistência ou encontrar problemas, consulte os documentos 
 
 Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
-- <b>scripts</b>: Codigos do projeto
+- <b>src</b>: Contém os codigos do projeto - Sketch.ino e diagram.json
 
-- <b>README.md</b>: Instruções
+- <b>docs</b>: Contém os documentos do projeto.
+    - <b>README.md</b>: Instruções
+
+- <b>tests</b>: Contém os resultados dos testes executados, para este projeto são prints do monitor serial da plataforma Wokwi com os resutados das simulações.
 
 ## 🔧 Como executar o código
 
-main.py
-
+1. Para executar o código apenas copie o conteúdo dos arquivos Sketch.ino e diagram.json para os respectivos arquivos dentro da plataforma Wokwi e rode a simulação para ter acesso ao ambinete.
 
 ## 🗃 Histórico de lançamentos
-* 0.X.0 - dd/10/2024
+* 0.1.0 - 02/11/2024
     * 
 * 0.X.0 - dd/10/2024
     *
 * 0.X.0 - dd/10/2024
     * 
-* 0.1.0 - 22/10/2024
+* 0.x.0 - 22/10/2024
     *
 
 ## 📋 Licença
