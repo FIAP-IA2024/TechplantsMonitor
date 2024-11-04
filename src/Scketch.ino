@@ -1,6 +1,7 @@
 // Importa a biblioteca DHT
 #include <DHT.h>
 
+<<<<<< ReleControleIrrigação
 // Definição dos pinos dos sensores e atuadores
 #define pinoPIR 22       // Pino para o sensor PIR
 #define pinoDHT 12       // Pino para o DHT22
@@ -8,6 +9,12 @@
 #define trigPin 17       // Pino GPIO conectado ao Trig do HC-SR04
 #define echoPin 16       // Pino GPIO conectado ao Echo do HC-SR04
 #define pinoRele 32      // Pino de controle para ativação do relé
+=======
+// Definição dos pinos dos sensores
+#define pinoPIR 22       // Pino para o sensor PIR
+#define pinoDHT 12       // Pino para o DHT22
+#define pinoLDR 14       // Pino para o LDR (sensor de intensidade da luz solar)
+>>>>>> main
 
 // Definição do tipo de sensor DHT
 #define tipoDHT DHT22
@@ -72,6 +79,7 @@ void loop() {
 
   // --- Leitura do Sensor LDR ---
   int valorLDR = analogRead(pinoLDR);
+<<<<<< ReleControleIrrigação
 
   // Exibição do valor da luminosidade
   Serial.print("Luminosidade (LDR): ");
@@ -136,6 +144,13 @@ void loop() {
     Serial.println("Irrigação DESLIGADA");
   }
 
+=======
+
+  // Exibição do valor da luminosidade
+  Serial.print("Luminosidade (LDR): ");
+  Serial.println(valorLDR);
+
+>>>>>> main
   // --- Delay antes da próxima leitura ---
   delay(5000);  // Aguarda 5 segundos antes da próxima leitura
 }

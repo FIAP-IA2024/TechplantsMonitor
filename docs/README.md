@@ -51,6 +51,7 @@ O sistema é dividido em diversos "módulos" que desempenham funções específi
 
 - Leitura de variações de luz sobre o sensor.
 - Output: Valor da luminosidade é exibido no Serial Monitor.
+<<<<<< ReleControleIrrigação
 
 4. Sensor HC-SR04 - Sensor ultrassom/proximidade
 
@@ -71,6 +72,8 @@ O sistema é dividido em diversos "módulos" que desempenham funções específi
         d) Limiar do LDR: O valor de captura do LDR deve estar abaixo do Limiar LDR (3000 que é o valor máximo do LDR para considerar que está escuro o suficiente para irrigar).
 
 - Output: Com a satisfação da regra de automação, a mensagem de irrigação iniciada é exibida no Serial Monitor e LED verde do relé será acionado, se não o led vermelho se mantém acionado.
+=======
+>>>>>> main
 
  Requisitos do Sistema
 
