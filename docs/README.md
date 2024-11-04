@@ -52,16 +52,21 @@ O sistema é dividido em diversos "módulos" que desempenham funções específi
 - Leitura de variações de luz sobre o sensor.
 - Output: Valor da luminosidade é exibido no Serial Monitor.
 
+4. Sensor HC-SR04 - Sensor ultrassom/proximidade
+
+- Realiza e envio e captura de pulsos de 10 microssegundos, e calcula a distancia em centimetros (distancia = duracao * 0.034 / 2;)
+- Baseado no calculo da distancia realiza o calculo de nivel de reserva de agua do reservatório de irrigação.
+- Exibe mensagens sobre o estado do reservatório (em 6 estágios: Ótimo - acima de 90%, Bom - entre 90% e 75% , Normal - Entre 74% e 50%, Risco - entre 49% e 25%, Mínimo - entre 25% e 1%, Crítico - 0%);
+- Output: Se a distância for inválida ou fora do alcance, exibe uma mensagem de erro, caso contrário, exibe o nível atual do reservatório.
+
  Requisitos do Sistema
 
 - ESP32 (Wokwi - esp32-devkit-c-v4) - https://wokwi.com
-- Bibliotecas: DHT sensor library e DHT22 (ver arquivo libraries.txt na pasta docs do repositório)
+- Bibliotecas: HC-SR04, DHT sensor library e DHT22 (ver arquivo libraries.txt na pasta docs do repositório)
 
  Instruções de Uso
 
-1. Certifique-se de que todas as bibliotecas estão instaladas.
-2. Configure os parametros de conexão do banco de dados no arquivo conexao.txt no diretorio raiz da aplicação.
-3. Execute `main.py` para iniciar o aplicativo e siga as instruções no menu.
+1. Para executar o código apenas inicie a simulação para ter acesso a solução de maneira interativa na plataforma Wokwi.
 
 Se precisar de mais assistência ou encontrar problemas, consulte os documentos das bibliotecas ou entre em contato com o desenvolvedor responsável.
 
@@ -78,7 +83,13 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
 ## 🔧 Como executar o código
 
-1. Para executar o código apenas inicie a simulação para ter acesso a solução de maneira interativa na plataforma Wokwi.
+1. Crie um projeto no ambiente wokwi utilizando a opção ESP32 e ESP 32 em Starter Templates;
+2. Copie todo o conteudo do arquivo sketck.ino do repositório deste projeto no Github para a aba do projeto wokwi com o mesmo nome, sketch.ino;
+3. Copie todo o conteudo do arquivo diagram.json do repositório deste projeto no Github para a aba do projeto wokwi com o mesmo nome, diagram.json;
+4. Na aba Library Manager, no wokwi, clique no botão com o simbolo positivo (+) azul e adicione as bibliotecas de componentes: HC-SR04, DHT sensor library e DHT22 (para facilitar, copie e cole os nomes no popup que abrir em sua tela.)
+5. Certifique-se de que todas as bibliotecas estão instaladas verificando se uma nova aba chamada libraries.txt foi criada com os nomes das bibliotecas acima.
+6. Para iniciar a simulação apenas clique no botão verde com o simbolo de play na janela a direita do código da solução no wokwi.
+
 
 ## 🗃 Histórico de lançamentos
 * 0.1.0 - 02/11/2024
