@@ -92,6 +92,8 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
 - <b>docs</b>: Contém os documentos do projeto.
     - <b>README.md</b>: Informações gerais sobre o projeto, sobre a iniciativa e também instruções gerais para utilização do conteudo do repositório GIT.
+    - <b>libraries.txt</b>: Arquivo que demonstra quais libs estão inseridas/aplicadas na solução no wokwi.
+    - <b>linkprojetowokwi.txt</b>: documento com o link do projeto disponibilizado no wokwi.
 
 - <b>tests</b>: Contém os resultados dos testes executados, para este projeto são prints do monitor serial da plataforma Wokwi com os resutados das simulações.
 
