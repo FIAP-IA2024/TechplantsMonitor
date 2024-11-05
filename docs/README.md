@@ -109,10 +109,6 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
     * 
 * 0.X.0 - dd/10/2024
     *
-* 0.X.0 - dd/10/2024
-    * 
-* 0.x.0 - 22/10/2024
-    *
 
 ## 📋 Licença
 

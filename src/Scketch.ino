@@ -132,10 +132,6 @@ void lerNivelAgua() {
     Serial.println(" Litros");
 
     exibirEstadoReservatorio(distancia);
-
-    if (nivel <= NIVEL_MINIMO) {
-      Serial.println("ALERTA: Nível de água abaixo do mínimo necessário para irrigação.");
-    }
   }
 }
 
