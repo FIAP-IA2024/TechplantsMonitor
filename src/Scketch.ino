@@ -1,73 +1,80 @@
 // Importa a biblioteca DHT
 #include <DHT.h>
 
-<<<<<< ReleControleIrrigação
 // Definição dos pinos dos sensores e atuadores
-#define pinoPIR 22       // Pino para o sensor PIR
-#define pinoDHT 12       // Pino para o DHT22
-#define pinoLDR 14       // Pino para o LDR (sensor de intensidade da luz solar)
-#define trigPin 17       // Pino GPIO conectado ao Trig do HC-SR04
-#define echoPin 16       // Pino GPIO conectado ao Echo do HC-SR04
-#define pinoRele 32      // Pino de controle para ativação do relé
-=======
-// Definição dos pinos dos sensores
-#define pinoPIR 22       // Pino para o sensor PIR
-#define pinoDHT 12       // Pino para o DHT22
-#define pinoLDR 14       // Pino para o LDR (sensor de intensidade da luz solar)
->>>>>> main
+#define PINO_PIR 22       // Pino para o sensor PIR
+#define PINO_DHT 12       // Pino para o DHT22
+#define PINO_LDR 14       // Pino para o LDR (sensor de intensidade da luz solar)
+#define TRIG_PIN 17       // Pino GPIO conectado ao Trig do HC-SR04
+#define ECHO_PIN 16       // Pino GPIO conectado ao Echo do HC-SR04
+#define PINO_RELE 32      // Pino de controle para ativação do relé
 
 // Definição do tipo de sensor DHT
-#define tipoDHT DHT22
-DHT dht(pinoDHT, tipoDHT);
+#define TIPO_DHT DHT22
+DHT dht(PINO_DHT, TIPO_DHT);
 
 // --- Variáveis e Parâmetros ---
-const int alturaReservatorio = 400;  // Altura do reservatório em centímetros
-const int nivelMaximo = 400000;      // Nível máximo do reservatório em litros
-const int nivelMinimo = 10000;       // Nível mínimo do reservatório em litros
+const int ALTURA_RESERVATORIO = 400;    // Altura do reservatório em centímetros
+const int NIVEL_MAXIMO = 400000;        // Nível máximo do reservatório em litros
+const int NIVEL_MINIMO = 10000;         // Nível mínimo do reservatório em litros
 
 // Limiares para controle
-const float umidadeMinima = 40.0;    // Umidade mínima em porcentagem
-const float temperaturaMaxima = 30.0; // Temperatura máxima em Celsius
-const int limiarLDR = 3000;          // Limiar para o valor do LDR (ajuste conforme necessário)
+const float UMIDADE_MINIMA = 40.0;      // Umidade mínima em porcentagem
+const float TEMPERATURA_MAXIMA = 30.0;  // Temperatura máxima em Celsius
+const int LIMIAR_LDR = 3000;            // Limiar para o valor do LDR (ajuste conforme necessário)
+
+// Variáveis globais
+float umidade = 0.0;
+float temperatura = 0.0;
+int valorLDR = 0;
+int nivel = 0;
 
 void setup() {
   // Inicialização da comunicação serial
   Serial.begin(115200);
 
   // Configuração dos pinos dos sensores
-  pinMode(pinoPIR, INPUT);
-  pinMode(pinoLDR, INPUT);
+  pinMode(PINO_PIR, INPUT);
+  pinMode(PINO_LDR, INPUT);
 
   // Inicialização do sensor DHT22
   dht.begin();
 
   // Configuração dos pinos do HC-SR04
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
 
   // Configuração do pino do relé
-  pinMode(pinoRele, OUTPUT);
-  digitalWrite(pinoRele, LOW); // Garante que o relé esteja desligado no início
+  pinMode(PINO_RELE, OUTPUT);
+  digitalWrite(PINO_RELE, LOW); // Garante que o relé esteja desligado no início
 }
 
 void loop() {
-  // --- Leitura do Sensor PIR ---
-  int pirValue = digitalRead(pinoPIR);
+  lerSensorPIR();
+  lerSensorDHT22();
+  lerSensorLDR();
+  lerNivelAgua();
+  controlarIrrigacao();
+  delay(5000);  // Aguarda 5 segundos antes da próxima leitura
+}
 
-  // Verifica se o sensor PIR detectou movimento
+// --- Funções Auxiliares ---
+
+void lerSensorPIR() {
+  int pirValue = digitalRead(PINO_PIR);
+
   if (pirValue == HIGH) {
     Serial.println("Movimento detectado! Alarme acionado!");
   }
+}
 
-  // --- Leitura do Sensor DHT22 ---
-  float umidade = dht.readHumidity();
-  float temperatura = dht.readTemperature();
+void lerSensorDHT22() {
+  umidade = dht.readHumidity();
+  temperatura = dht.readTemperature();
 
-  // Verifica se a leitura do DHT falhou
   if (isnan(umidade) || isnan(temperatura)) {
     Serial.println("Falha ao ler o DHT!");
   } else {
-    // Exibição dos valores de temperatura e umidade
     Serial.print("Temperatura: ");
     Serial.print(temperatura);
     Serial.println(" °C");
@@ -75,82 +82,85 @@ void loop() {
     Serial.print("Umidade: ");
     Serial.print(umidade);
     Serial.println(" %");
+
+    if (umidade < UMIDADE_MINIMA) {
+      Serial.println("ALERTA: Umidade baixa! Condições secas podem prejudicar as plantas.");
+    }
+
+    if (temperatura > TEMPERATURA_MAXIMA) {
+      Serial.println("ALERTA: Temperatura alta! Condições de calor extremo detectadas.");
+    }
   }
+}
 
-  // --- Leitura do Sensor LDR ---
-  int valorLDR = analogRead(pinoLDR);
-<<<<<< ReleControleIrrigação
+void lerSensorLDR() {
+  valorLDR = analogRead(PINO_LDR);
 
-  // Exibição do valor da luminosidade
   Serial.print("Luminosidade (LDR): ");
   Serial.println(valorLDR);
+}
 
-  // --- Leitura do Nível de Água com o HC-SR04 ---
+void lerNivelAgua() {
   unsigned long duracao;
   unsigned int distancia;
 
   // Envia um pulso de 10us para o Trig
-  digitalWrite(trigPin, LOW);
+  digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  digitalWrite(TRIG_PIN, LOW);
 
   // Calcula o tempo de duração do pulso de retorno no Echo
-  duracao = pulseIn(echoPin, HIGH, 30000);  // Timeout de 30ms
+  duracao = pulseIn(ECHO_PIN, HIGH, 30000);  // Timeout de 30ms
 
   // Calcula a distância em centímetros
   distancia = duracao * 0.034 / 2;
 
-  int nivel = 0;  // Variável para armazenar o nível calculado
-
   // Verifica se a distância está dentro do esperado
-  if (distancia <= 0 || distancia > alturaReservatorio) {
+  if (distancia <= 0 || distancia > ALTURA_RESERVATORIO) {
     Serial.println("Leitura do nível de água fora de alcance");
   } else {
     // Calcula o nível atual do reservatório
-    nivel = (alturaReservatorio - distancia) * (nivelMaximo / alturaReservatorio);
-    nivel = constrain(nivel, 0, nivelMaximo);
+    nivel = (ALTURA_RESERVATORIO - distancia) * (NIVEL_MAXIMO / ALTURA_RESERVATORIO);
+    nivel = constrain(nivel, 0, NIVEL_MAXIMO);
 
-    // Exibe o nível da água
     Serial.print("Nível da Água: ");
     Serial.print(nivel);
     Serial.print(" / ");
-    Serial.print(nivelMaximo);
+    Serial.print(NIVEL_MAXIMO);
     Serial.println(" Litros");
 
-    // Mensagens sobre o estado do reservatório
-    if (distancia <= 39) {
-      Serial.println("Reservatório em estado ÓTIMO - Nível de água acima de 90%");
-    } else if (distancia <= 100) {
-      Serial.println("Reservatório em estado BOM - Nível de água entre 75% e 90%");
-    } else if (distancia <= 200) {
-      Serial.println("Reservatório em estado NORMAL - Nível de água entre 50% e 74%");
-    } else if (distancia <= 300) {
-      Serial.println("Reservatório em estado de RISCO - Nível de água entre 25% e 49%");
-    } else if (distancia <= 398) {
-      Serial.println("Reservatório em estado MÍNIMO - Nível de água abaixo de 25%");
-    } else {
-      Serial.println("Reservatório em estado CRÍTICO - Ação imediata necessária!");
-    }
+    exibirEstadoReservatorio(distancia);
   }
+}
 
-  // --- Controle do Relé (Irrigação) ---
-  if (((umidade < umidadeMinima) || (temperatura > temperaturaMaxima)) && (valorLDR < limiarLDR) && (nivel > nivelMinimo)) {
-    digitalWrite(pinoRele, HIGH); // Liga o relé
+void exibirEstadoReservatorio(int distancia) {
+  if (distancia <= 39) {
+    Serial.println("Reservatório em estado ÓTIMO - Nível de água acima de 90%");
+  } else if (distancia <= 100) {
+    Serial.println("Reservatório em estado BOM - Nível de água entre 75% e 90%");
+  } else if (distancia <= 200) {
+    Serial.println("Reservatório em estado NORMAL - Nível de água entre 50% e 74%");
+  } else if (distancia <= 300) {
+    Serial.println("Reservatório em estado de RISCO - Nível de água entre 25% e 49%");
+  } else if (distancia <= 398) {
+    Serial.println("Reservatório em estado MÍNIMO - Nível de água abaixo de 25%");
+  } else {
+    Serial.println("ALERTA CRÍTICO: Reservatório quase vazio! Ação imediata necessária!");
+  }
+}
+
+void controlarIrrigacao() {
+  bool condicoesIrrigacao = ((umidade < UMIDADE_MINIMA) || (temperatura > TEMPERATURA_MAXIMA)) &&
+                            (valorLDR < LIMIAR_LDR) &&
+                            (nivel > NIVEL_MINIMO);
+
+  if (condicoesIrrigacao) {
+    digitalWrite(PINO_RELE, HIGH); // Liga o relé
     Serial.println("Irrigação LIGADA");
   } else {
-    digitalWrite(pinoRele, LOW); // Desliga o relé
+    digitalWrite(PINO_RELE, LOW); // Desliga o relé
     Serial.println("Irrigação DESLIGADA");
   }
-
-=======
-
-  // Exibição do valor da luminosidade
-  Serial.print("Luminosidade (LDR): ");
-  Serial.println(valorLDR);
-
->>>>>> main
-  // --- Delay antes da próxima leitura ---
-  delay(5000);  // Aguarda 5 segundos antes da próxima leitura
 }
